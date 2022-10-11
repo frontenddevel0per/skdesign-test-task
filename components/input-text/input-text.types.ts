@@ -1,5 +1,6 @@
 export type InputTextType = {
-  name: string;
-  placeholder: string;
-  isError: boolean;
+  id: string;
+  placeholder?: string;
+  label?: string;
+  error?: string;
 };
