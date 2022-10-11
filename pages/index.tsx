@@ -4,7 +4,7 @@ import CustomButton from "../components/button/button.component";
 const Home: NextPage = () => {
   return (
     <div className="wrapper">
-      <CustomButton isDisabled>Ya zhru govno epta xdddd</CustomButton>
+      <CustomButton>Пример текста</CustomButton>
     </div>
   );
 };
