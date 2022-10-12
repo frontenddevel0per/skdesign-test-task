@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useState, FormEvent } from "react";
 import Image from "next/future/image";
 import CustomButton from "../button/button.component";
 import CustomInput from "../input-text/input-text.component";
@@ -10,6 +10,7 @@ import logo from "../../resources/img/logo.png";
 import arrowicon from "../../resources/img/arrow-icon.png";
 
 const RequestForm: FC = () => {
+  const [isSendingData, setIsSendingData] = useState(false);
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
@@ -32,7 +33,7 @@ const RequestForm: FC = () => {
 
   const checkPhoneNumber = (data: string) => {
     if (data === "") return true;
-    return /^\+?[0-9]+$/.test(data);
+    return /^\+?[0-9]{11}$/.test(data);
   };
 
   //    да, все эти проверки я писал вручную, что поделать, если type="url" у инпутов настолько кастрированный,
@@ -53,6 +54,22 @@ const RequestForm: FC = () => {
       city !== "" &&
       checkLettersWithSpace(fullName)
     );
+  };
+
+  const onFormSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsSendingData(true);
+    const resetForm = event.target as HTMLFormElement;
+    resetForm.reset();
+    setName("");
+    setPhoneNumber("");
+    setEmail("");
+    setLink("");
+    setCity("");
+    setStudioName("");
+    setFullName("");
+    setSource("");
+    setTimeout(() => setIsSendingData(false), 2000);
   };
 
   return (
@@ -82,7 +99,7 @@ const RequestForm: FC = () => {
           </p>
         </span>
       </div>
-      <form>
+      <form onSubmit={(event) => onFormSubmit(event)}>
         <div className="form-section">
           <CustomInput
             id="name"
@@ -102,9 +119,7 @@ const RequestForm: FC = () => {
             placeholder="+7 (000) 000-00-00"
             updateData={setPhoneNumber}
             error={
-              !checkPhoneNumber(phoneNumber)
-                ? "Разрешены только цифры"
-                : undefined
+              !checkPhoneNumber(phoneNumber) ? "Некорректный номер" : undefined
             }
             minLength={11}
             maxLength={12}
@@ -169,7 +184,11 @@ const RequestForm: FC = () => {
             />
           </>
         )}
-        <CustomButton type="submit" disabled={!checkForm()}>
+        <CustomButton
+          type="submit"
+          disabled={!checkForm()}
+          loading={isSendingData}
+        >
           Отправить заявку
         </CustomButton>
       </form>
