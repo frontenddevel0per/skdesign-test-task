@@ -1,23 +1,23 @@
 import { FC } from "react";
 import Image from "next/future/image";
-import { ButtonProps } from "./button.types";
+import type { ButtonProps } from "./button.types";
 
 import loadingpng from "../../resources/img/loading.png";
 
-const Button: FC<ButtonProps> = ({
+const Button: FC<ButtonProps & React.ComponentProps<"button">> = ({
   children,
-  isDisabled = false,
-  isLoading = false,
+  loading = false,
+  ...props
 }) => {
-  const classes = isDisabled
-    ? "custom-button disabled"
-    : "custom-button enabled";
   return (
-    <>
-      <button className={classes} disabled={isDisabled}>
-        {isLoading ? <Image src={loadingpng} alt="loadingpng" /> : children}
-      </button>
-    </>
+    <button
+      className={
+        props.disabled ? "custom-button disabled" : "custom-button enabled"
+      }
+      {...props}
+    >
+      {loading ? <Image src={loadingpng} alt="loadingpng" /> : children}
+    </button>
   );
 };
 
