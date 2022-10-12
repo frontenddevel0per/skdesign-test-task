@@ -1,7 +1,7 @@
 import { ComponentProps } from "react";
 
 type ArrayItemProps = {
-  id: string;
+  id?: string;
   name: string;
 };
 

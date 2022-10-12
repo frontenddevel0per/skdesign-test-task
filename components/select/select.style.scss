@@ -8,6 +8,7 @@
     border: 2px solid #E3E3E3;
     border-radius: 8px;
     transition: 0.25s all ease;
+    cursor: pointer;
 
     .select-label {
         font-size: 14px;
@@ -16,7 +17,9 @@
         padding: 0px 5px;
         position: relative;
         top: 14px;
+        left: -5px;
         transition: 0.25s all ease;
+        cursor: pointer;
     }
 
     .select-list {
