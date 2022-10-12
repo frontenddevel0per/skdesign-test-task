@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import Image from "next/future/image";
 import CustomButton from "../button/button.component";
 import CustomInput from "../input-text/input-text.component";
@@ -10,16 +10,49 @@ import logo from "../../resources/img/logo.png";
 import arrowicon from "../../resources/img/arrow-icon.png";
 
 const RequestForm: FC = () => {
+  const [name, setName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
+  const [link, setLink] = useState("");
   const [city, setCity] = useState("");
+  const [studioName, setStudioName] = useState("");
+  const [fullName, setFullName] = useState("");
   const [source, setSource] = useState("");
   const [isShowMore, setIsShowMore] = useState(false);
 
-  const updateCityData = (data: string) => {
-    setCity(data);
+  const checkOnlyLetters = (data: string) => {
+    if (data === "") return true;
+    return /^[a-zA-Zа-яА-Я]+$/.test(data);
   };
 
-  const updateSourceData = (data: string) => {
-    setSource(data);
+  const checkLettersWithSpace = (data: string) => {
+    if (data === "") return true;
+    return /^[a-zA-Zа-яА-Я\s]+$/.test(data);
+  };
+
+  const checkPhoneNumber = (data: string) => {
+    if (data === "") return true;
+    return /^\+?[0-9]+$/.test(data);
+  };
+
+  //    да, все эти проверки я писал вручную, что поделать, если type="url" у инпутов настолько кастрированный,
+  //    что заставляет в начале ссылки приписывать 'https://'
+  const checkLink = (data: string) => {
+    if (data === "") return true;
+    return /^(https:\/\/)?[a-zA-zа-яА-Я0-9]+\.[a-zA-zа-яА-Я]+(\/[\w]+)?$/.test(
+      data
+    );
+  };
+
+  const checkForm = () => {
+    return (
+      name !== "" &&
+      checkOnlyLetters(name) &&
+      checkPhoneNumber(phoneNumber) &&
+      checkLink(link) &&
+      city !== "" &&
+      checkLettersWithSpace(fullName)
+    );
   };
 
   return (
@@ -51,38 +84,62 @@ const RequestForm: FC = () => {
       </div>
       <form>
         <div className="form-section">
-          <CustomInput id="name" label="Ваше имя *" placeholder="Иван" />
+          <CustomInput
+            id="name"
+            label="Ваше имя *"
+            placeholder="Иван"
+            updateData={setName}
+            error={
+              !checkOnlyLetters(name) ? "Разрешены только буквы" : undefined
+            }
+            minLength={2}
+            required
+          />
           <CustomInput
             id="phone-number"
             label="Номер телефона *"
+            type="tel"
             placeholder="+7 (000) 000-00-00"
+            updateData={setPhoneNumber}
+            error={
+              !checkPhoneNumber(phoneNumber)
+                ? "Разрешены только цифры"
+                : undefined
+            }
+            minLength={11}
+            maxLength={12}
+            required
           />
         </div>
         <div className="form-section">
           <CustomInput
             id="email"
             label="E-mail *"
+            type="email"
             placeholder="example@skdesign.ru"
+            updateData={setEmail}
+            minLength={6} //a@b.su
+            required
           />
           <CustomInput
             id="link"
             label="Ссылка на профиль *"
             placeholder="instagram.com/skde…"
+            updateData={setLink}
+            error={!checkLink(link) ? "Некорректная ссылка" : undefined}
+            required
           />
         </div>
         <CustomSelect
-          label={
-            city === ""
-              ? "Выберите город *"
-              : CitiesDB.find((item) => item.id === city)?.name
-          }
-          arr={CitiesDB}
-          updateData={updateCityData}
+          label={city === "" ? "Выберите город *" : city}
+          arr={CitiesDB.map((item) => item.name)}
+          updateData={setCity}
         />
         <CustomInput
           id="studioname"
           label="Название организации/студии"
           placeholder="SK Design"
+          updateData={setStudioName}
         />
         <button
           className={isShowMore ? "show-more-btn" : "show-more-btn down"}
@@ -94,15 +151,27 @@ const RequestForm: FC = () => {
         </button>
         {isShowMore && (
           <>
-            <CustomInput id="recipient" label="Получатель" placeholder="ФИО" />
+            <CustomInput
+              id="recipient"
+              label="Получатель"
+              placeholder="ФИО"
+              updateData={setFullName}
+              error={
+                !checkLettersWithSpace(fullName)
+                  ? "Разрешены только буквы"
+                  : undefined
+              }
+            />
             <CustomSelect
               label={source === "" ? "Откуда узнали про нас?" : source}
-              arr={CitiesDB}
-              updateData={updateSourceData}
+              arr={SourcesDB}
+              updateData={setSource}
             />
           </>
         )}
-        <CustomButton type="submit">Отправить заявку</CustomButton>
+        <CustomButton type="submit" disabled={!checkForm()}>
+          Отправить заявку
+        </CustomButton>
       </form>
     </div>
   );

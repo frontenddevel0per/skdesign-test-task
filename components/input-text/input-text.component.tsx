@@ -6,6 +6,7 @@ const InputText: FC<InputTypes> = ({
   label,
   placeholder = "Enter the text",
   error,
+  updateData,
   ...props
 }) => {
   return (
@@ -20,6 +21,7 @@ const InputText: FC<InputTypes> = ({
         id={id}
         placeholder={placeholder}
         className="custom-input-text"
+        onChange={(e) => updateData(e.target.value)}
         {...props}
       />
       {error && (

@@ -1,13 +1,8 @@
 import { ComponentProps } from "react";
 
-type ArrayItemProps = {
-  id?: string;
-  name: string;
-};
-
 type CustomSelectProps = {
   label: string | undefined;
-  arr: ArrayItemProps[];
+  arr: string[];
   updateData: (data: string) => void;
 };
 

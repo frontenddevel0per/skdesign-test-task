@@ -19,13 +19,13 @@ const Select: FC<SelectTypes> = ({
       </label>
       <div className="select-list" id={props.id}>
         {isOpened &&
-          arr.map((item, index) => (
+          arr.map((item) => (
             <div
-              key={item.id}
+              key={item}
               className="select-list-item"
-              onClick={() => updateData(item.name)}
+              onClick={() => updateData(item)}
             >
-              <p>{item.name}</p>
+              <p>{item}</p>
             </div>
           ))}
       </div>
