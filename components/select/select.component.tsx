@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
-import { CustomSelectTypes } from "./custom-select.types";
+import { SelectTypes } from "./select.types";
 
-const CustomSelect: FC<CustomSelectTypes & React.ComponentProps<"select">> = ({
+const Select: FC<SelectTypes> = ({
   label = "How did you know about us?",
   arr,
   updateData,
@@ -23,7 +23,7 @@ const CustomSelect: FC<CustomSelectTypes & React.ComponentProps<"select">> = ({
             <div
               key={item.id}
               className="select-list-item"
-              onClick={() => updateData(item.name)}
+              onClick={() => updateData(item.id)}
             >
               <p>{item.name}</p>
             </div>
@@ -33,4 +33,4 @@ const CustomSelect: FC<CustomSelectTypes & React.ComponentProps<"select">> = ({
   );
 };
 
-export default CustomSelect;
+export default Select;

@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import { useState } from "react";
 import CustomButton from "../components/button/button.component";
 import CustomInput from "../components/input-text/input-text.component";
-import CustomSelect from "../components/custom-select/custom-select.component";
+import CustomSelect from "../components/select/select.component";
 import DB from "../resources/DB/cities.json";
 
 const Home: NextPage = () => {
@@ -29,7 +29,11 @@ const Home: NextPage = () => {
       />
       <CustomSelect
         id="customselect1"
-        label="Enter your label here"
+        label={
+          city === ""
+            ? "Enter your city"
+            : DB.find((item) => item.id === city)?.name
+        }
         arr={DB}
         updateData={updateData}
       />

@@ -30,6 +30,12 @@
         }
     }
 
+    &:focus-within {
+        .input-label {
+            color: #0086A8;
+        }
+    }
+
     &.error {
         .input-label {
             color: #EB5E55;

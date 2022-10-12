@@ -1,14 +1,10 @@
 import { FC } from "react";
 import Image from "next/future/image";
-import type { ButtonProps } from "./button.types";
+import type { ButtonTypes } from "./button.types";
 
 import loadingpng from "../../resources/img/loading.png";
 
-const Button: FC<ButtonProps & React.ComponentProps<"button">> = ({
-  children,
-  loading = false,
-  ...props
-}) => {
+const Button: FC<ButtonTypes> = ({ children, loading = false, ...props }) => {
   return (
     <button
       className={

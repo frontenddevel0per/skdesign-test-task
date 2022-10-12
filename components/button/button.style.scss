@@ -42,11 +42,12 @@
     color: #FFF;
 
     &.enabled:hover {
-        background: #007693;
+      background: #007693;
+      cursor: pointer;
     }
 
     &.enabled:active {
-        background: #00657E;
+      background: #00657E;
     }
 
     img {

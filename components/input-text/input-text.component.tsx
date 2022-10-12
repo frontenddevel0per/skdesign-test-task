@@ -1,9 +1,13 @@
 import { FC } from "react";
-import { InputTextType } from "./input-text.types";
+import { InputTypes } from "./input-text.types";
 
-const InputText: FC<
-  InputTextType & React.ComponentPropsWithoutRef<"input">
-> = ({ id, label, placeholder = "Enter the text", error, ...props }) => {
+const InputText: FC<InputTypes> = ({
+  id,
+  label,
+  placeholder = "Enter the text",
+  error,
+  ...props
+}) => {
   return (
     <div className={error ? "input-wrapper error" : "input-wrapper"}>
       {label && (
