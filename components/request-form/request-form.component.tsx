@@ -3,6 +3,8 @@ import Image from "next/future/image";
 import CustomButton from "../button/button.component";
 import CustomInput from "../input-text/input-text.component";
 import CustomSelect from "../select/select.component";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { saveFormData } from "../../redux/form-data/form-data.slice";
 
 import CitiesDB from "../../resources/DB/cities.json";
 import SourcesDB from "../../resources/DB/sources.json";
@@ -10,6 +12,8 @@ import logo from "../../resources/img/logo.png";
 import arrowicon from "../../resources/img/arrow-icon.png";
 
 const RequestForm: FC = () => {
+  const dispatch = useAppDispatch();
+  const formData = useAppSelector((state) => state.value);
   const [isSendingData, setIsSendingData] = useState(false);
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -58,8 +62,22 @@ const RequestForm: FC = () => {
 
   const onFormSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setIsSendingData(true);
     const resetForm = event.target as HTMLFormElement;
+    setIsSendingData(true);
+    const data = {
+      name,
+      phoneNumber,
+      email,
+      link,
+      city,
+      studioName,
+      fullName,
+      source,
+    };
+    setTimeout(() => {
+      setIsSendingData(false);
+      dispatch(saveFormData(data));
+    }, 2000);
     resetForm.reset();
     setName("");
     setPhoneNumber("");
@@ -69,7 +87,6 @@ const RequestForm: FC = () => {
     setStudioName("");
     setFullName("");
     setSource("");
-    setTimeout(() => setIsSendingData(false), 2000);
   };
 
   return (
