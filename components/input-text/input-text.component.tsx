@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { InputTypes } from "./input-text.types";
+import styles from "./input-text.module.scss";
 
 const InputText: FC<InputTypes> = ({
   id,
@@ -10,9 +11,15 @@ const InputText: FC<InputTypes> = ({
   ...props
 }) => {
   return (
-    <div className={error ? "input-wrapper error" : "input-wrapper"}>
+    <div
+      className={
+        error
+          ? `${styles["input-wrapper"]} ${styles.error}`
+          : `${styles["input-wrapper"]}`
+      }
+    >
       {label && (
-        <label className="input-label" htmlFor={id}>
+        <label className={`${styles["input-label"]}`} htmlFor={id}>
           {label}
         </label>
       )}
@@ -20,12 +27,12 @@ const InputText: FC<InputTypes> = ({
         type="text"
         id={id}
         placeholder={placeholder}
-        className="custom-input-text"
+        className={`${styles["custom-input-text"]}`}
         onChange={(e) => updateData(e.target.value)}
         {...props}
       />
       {error && (
-        <label className="input-error" htmlFor={id}>
+        <label className={`${styles["input-error"]}`} htmlFor={id}>
           {error}
         </label>
       )}

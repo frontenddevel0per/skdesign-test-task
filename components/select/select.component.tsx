@@ -1,5 +1,6 @@
 import { FC, useState } from "react";
 import { SelectTypes } from "./select.types";
+import styles from "./select.module.scss";
 
 const Select: FC<SelectTypes> = ({
   label = "How did you know about us?",
@@ -11,18 +12,22 @@ const Select: FC<SelectTypes> = ({
 
   return (
     <div
-      className={isOpened ? "select-wrapper active" : "select-wrapper"}
+      className={
+        isOpened
+          ? `${styles["select-wrapper"]} ${styles.active}`
+          : `${styles["select-wrapper"]}`
+      }
       onClick={() => setIsOpened(!isOpened)}
     >
-      <label className="select-label" htmlFor={props.id}>
+      <label className={`${styles["select-label"]}`} htmlFor={props.id}>
         {label}
       </label>
-      <div className="select-list" id={props.id}>
+      <div className={`${styles["select-list"]}`} id={props.id}>
         {isOpened &&
           arr.map((item) => (
             <div
               key={item}
-              className="select-list-item"
+              className={`${styles["select-list-item"]}`}
               onClick={() => updateData(item)}
             >
               <p>{item}</p>
