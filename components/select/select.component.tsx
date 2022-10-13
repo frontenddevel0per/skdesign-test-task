@@ -12,18 +12,19 @@ const Select: FC<SelectTypes> = ({
   const labelRef = useRef(null);
   const [isOpened, setIsOpened] = useState(false);
 
-  useEffect(() => {
-    window?.addEventListener("click", (event) => {
-      if (
-        event.target !== selectRef.current &&
-        event.target !== labelRef.current &&
-        isOpened
-      ) {
-        setIsOpened(false);
-      }
-    });
+  const otherAreaClick = (event: MouseEvent) => {
+    if (
+      event.target !== selectRef.current &&
+      event.target !== labelRef.current &&
+      isOpened
+    ) {
+      setIsOpened(false);
+    }
+  };
 
-    return window?.removeEventListener("click", () => {});
+  useEffect(() => {
+    window?.addEventListener("click", (event) => otherAreaClick);
+    return window?.removeEventListener("click", otherAreaClick);
   }, [selectRef, isOpened]);
 
   return (
