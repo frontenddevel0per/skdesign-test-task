@@ -6,7 +6,7 @@ export const NameLabel = styled.label<{ isOpened: boolean }>`
   background: #ffffff;
   padding: 0px 5px;
   position: relative;
-  top: ${(props) => (props.isOpened ? `-12px` : `12px`)};
+  top: ${(props) => (props.isOpened ? `-14px` : `12px`)};
   left: ${(props) => (props.isOpened ? `-10px` : `-5px`)};
   transition: 0.25s all ease;
   cursor: pointer;
@@ -53,4 +53,12 @@ export const SelectWrapper = styled.div<{ isOpened: boolean }>`
   border-radius: 8px;
   transition: 0.25s all ease;
   cursor: pointer;
+
+  img {
+    position: relative;
+    top: 12px;
+    left: ${(props) => (props.isOpened ? `220px` : `200px`)};
+    transform: rotate(${(props) => (props.isOpened ? `0deg` : `-180deg`)});
+    transition: 0.25s all ease;
+  }
 `;

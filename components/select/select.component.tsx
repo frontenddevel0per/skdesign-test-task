@@ -1,4 +1,5 @@
 import { FC, useState, useEffect, useRef } from "react";
+import Image from "next/future/image";
 import { SelectTypes } from "./select.types";
 import {
   SelectWrapper,
@@ -7,6 +8,7 @@ import {
   DropDownItem,
   Text,
 } from "./select.styled";
+import arrowicon from "../../resources/img/arrow-icon.png";
 
 const Select: FC<SelectTypes> = ({
   label = "How did you know about us?",
@@ -44,6 +46,7 @@ const Select: FC<SelectTypes> = ({
       <NameLabel htmlFor={props.id} isOpened={isOpened} ref={labelRef}>
         {label}
       </NameLabel>
+      <Image src={arrowicon} alt="arrow-icon" />
       <DropDown id={props.id} isOpened={isOpened}>
         {isOpened &&
           arr.map((item) => (

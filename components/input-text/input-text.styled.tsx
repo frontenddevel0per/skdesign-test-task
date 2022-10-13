@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import InputText from "./input-text.component";
 
 export const Input = styled.input<{ error: boolean }>`
   width: 100%;
@@ -19,20 +18,6 @@ export const Input = styled.input<{ error: boolean }>`
   }
 `;
 
-export const NameLabel = styled.label<{ error: boolean }>`
-  font-size: 12px;
-  color: ${(props) => (props.error ? `#eb5e55` : `#828282`)};
-  background: #ffffff;
-  position: relative;
-  top: 8px;
-  left: 10px;
-  padding: 0 5px;
-
-  ${Input}:focus & {
-    color: #0086a8;
-  }
-`;
-
 export const ErrorLabel = styled.label`
   padding-left: 15px;
   font-size: 12px;
@@ -43,4 +28,18 @@ export const StyledInput = styled.div`
   min-width: 70px;
   width: 100%;
   font-family: "Open Sans", sans-serif;
+`;
+
+export const NameLabel = styled.label<{ error: boolean }>`
+  font-size: 12px;
+  color: ${(props) => (props.error ? `#eb5e55` : `#828282`)};
+  background: #ffffff;
+  position: relative;
+  top: 8px;
+  left: 10px;
+  padding: 0 5px;
+
+  ${StyledInput}:focus-within & {
+    color: #0086a8;
+  }
 `;
