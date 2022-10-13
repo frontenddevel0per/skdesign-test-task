@@ -13,7 +13,7 @@ import {
   checkLink,
   checkLettersWithSpace,
   validateForm,
-} from "./index.helpers";
+} from "../helpers/index.helpers";
 
 import CitiesDB from "../resources/DB/cities.json";
 import SourcesDB from "../resources/DB/sources.json";
