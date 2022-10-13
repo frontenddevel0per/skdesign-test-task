@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect, useRef } from "react";
 import { SelectTypes } from "./select.types";
 import styles from "./select.module.scss";
 
@@ -8,7 +8,23 @@ const Select: FC<SelectTypes> = ({
   updateData,
   ...props
 }) => {
+  const selectRef = useRef(null);
+  const labelRef = useRef(null);
   const [isOpened, setIsOpened] = useState(false);
+
+  useEffect(() => {
+    window?.addEventListener("click", (event) => {
+      if (
+        event.target !== selectRef.current &&
+        event.target !== labelRef.current &&
+        isOpened
+      ) {
+        setIsOpened(false);
+      }
+    });
+
+    return window?.removeEventListener("click", () => {});
+  }, [selectRef, isOpened]);
 
   return (
     <div
@@ -18,8 +34,13 @@ const Select: FC<SelectTypes> = ({
           : `${styles["select-wrapper"]}`
       }
       onClick={() => setIsOpened(!isOpened)}
+      ref={selectRef}
     >
-      <label className={`${styles["select-label"]}`} htmlFor={props.id}>
+      <label
+        className={`${styles["select-label"]}`}
+        htmlFor={props.id}
+        ref={labelRef}
+      >
         {label}
       </label>
       <div className={`${styles["select-list"]}`} id={props.id}>
