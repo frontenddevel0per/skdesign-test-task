@@ -43,7 +43,7 @@ export const Text = styled.p`
 `;
 
 export const SelectWrapper = styled.div<{ isOpened: boolean }>`
-  min-width: 250px;
+  min-width: 200px;
   width: 100%;
   height: 51px;
   font-family: "Open Sans", sans-serif;
@@ -56,9 +56,9 @@ export const SelectWrapper = styled.div<{ isOpened: boolean }>`
   position: relative;
 
   img {
-    position: absolute;
-    top: 19px;
-    left: 345px;
+    position: sticky;
+    margin-bottom: -12px;
+    left: 1800px;
     transform: rotate(${(props) => (props.isOpened ? `0deg` : `-180deg`)});
     transition: 0.25s all ease;
   }
