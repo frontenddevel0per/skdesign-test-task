@@ -53,11 +53,12 @@ export const SelectWrapper = styled.div<{ isOpened: boolean }>`
   border-radius: 8px;
   transition: 0.25s all ease;
   cursor: pointer;
+  position: relative;
 
   img {
-    position: relative;
-    top: 12px;
-    left: ${(props) => (props.isOpened ? `220px` : `200px`)};
+    position: absolute;
+    top: 19px;
+    left: 345px;
     transform: rotate(${(props) => (props.isOpened ? `0deg` : `-180deg`)});
     transition: 0.25s all ease;
   }
