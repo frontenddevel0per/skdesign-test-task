@@ -1,9 +1,8 @@
-import { ReactNode, ComponentProps } from "react";
+import { ReactNode, ComponentPropsWithoutRef } from "react";
 
 type ButtonProps = {
   children: ReactNode;
-  disabled?: boolean;
   loading?: boolean;
 };
 
-export type ButtonTypes = ComponentProps<"button"> & ButtonProps;
+export type ButtonTypes = ComponentPropsWithoutRef<"button"> & ButtonProps;

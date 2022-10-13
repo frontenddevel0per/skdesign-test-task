@@ -1,6 +1,12 @@
 import { FC, useState, useEffect, useRef } from "react";
 import { SelectTypes } from "./select.types";
-import styles from "./select.module.scss";
+import {
+  SelectWrapper,
+  NameLabel,
+  DropDown,
+  DropDownItem,
+  Text,
+} from "./select.styled";
 
 const Select: FC<SelectTypes> = ({
   label = "How did you know about us?",
@@ -23,40 +29,30 @@ const Select: FC<SelectTypes> = ({
   };
 
   useEffect(() => {
-    window?.addEventListener("click", (event) => otherAreaClick);
-    return window?.removeEventListener("click", otherAreaClick);
+    window?.addEventListener("click", (event) => otherAreaClick(event));
+    return window?.removeEventListener("click", (event) =>
+      otherAreaClick(event)
+    );
   }, [selectRef, isOpened]);
 
   return (
-    <div
-      className={
-        isOpened
-          ? `${styles["select-wrapper"]} ${styles.active}`
-          : `${styles["select-wrapper"]}`
-      }
+    <SelectWrapper
       onClick={() => setIsOpened(!isOpened)}
+      isOpened={isOpened}
       ref={selectRef}
     >
-      <label
-        className={`${styles["select-label"]}`}
-        htmlFor={props.id}
-        ref={labelRef}
-      >
+      <NameLabel htmlFor={props.id} isOpened={isOpened} ref={labelRef}>
         {label}
-      </label>
-      <div className={`${styles["select-list"]}`} id={props.id}>
+      </NameLabel>
+      <DropDown id={props.id} isOpened={isOpened}>
         {isOpened &&
           arr.map((item) => (
-            <div
-              key={item}
-              className={`${styles["select-list-item"]}`}
-              onClick={() => updateData(item)}
-            >
-              <p>{item}</p>
-            </div>
+            <DropDownItem key={item} onClick={() => updateData(item)}>
+              <Text>{item}</Text>
+            </DropDownItem>
           ))}
-      </div>
-    </div>
+      </DropDown>
+    </SelectWrapper>
   );
 };
 
